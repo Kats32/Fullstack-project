@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex; justify-content: center;
+      align-items: center; height: 100vh;
+      background: #f0f4f8; margin: 0;
+    }
+    .card {
+      background: white; padding: 40px 60px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h1 { color: #2d3748; }
+    p  { color: #4a5568; font-size: 1.1rem; margin: 8px 0; }
+    span { font-weight: bold; color: #3182ce; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Student Details</h1>
+    <p>Name: <span id="name">Loading...</span></p>
+    <p>Roll Number: <span id="roll">Loading...</span></p>
+  </div>
+
+  <script>
+    // Uses relative path — works both locally and on EC2
+    fetch('http://localhost:5000/student-details')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('name').textContent = data.name;
+        document.getElementById('roll').textContent = data.roll_number;
+        document.getElementById('reg').textContent  = data.register_number;
+      })
+      .catch(() => {
+        document.getElementById('name').textContent = 'Error fetching data';
+      });
+  </script>
+</body>
+</html>
